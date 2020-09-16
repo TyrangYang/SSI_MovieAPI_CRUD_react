@@ -7,6 +7,7 @@ import AddNewMovie from './components/AddNewMovie';
 function App() {
     return (
         <div className="App">
+            <h1 style={{ fontSize: '50px', textAlign: 'center' }}>MOVIE</h1>
             <AddNewMovie />
             <ListAllMovie />
         </div>

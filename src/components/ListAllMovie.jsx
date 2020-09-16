@@ -4,7 +4,8 @@ import EditCard from './EditCard';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies } from '../slicers/movieDataSlice';
-import { Tabs, Tab } from '@material-ui/core';
+import { Tabs, Tab, Container } from '@material-ui/core';
+import { tabContainer } from '../css/ListAllMovie.module.css';
 
 export default function ListAllMovie() {
     const dispatch = useDispatch();
@@ -25,15 +26,15 @@ export default function ListAllMovie() {
     const [displayEditCard, setDisplayEditCard] = useState(false);
     const [tabIndex, setTabIndex] = useState(0);
     return (
-        <div>
+        <Container maxWidth="md">
             {displayEditCard && (
                 <EditCard
                     initState={initEditCard}
                     setDisplayEditCard={setDisplayEditCard}
                 />
             )}
-
             <Tabs
+                className={tabContainer}
                 value={tabIndex}
                 onChange={(e, val) => {
                     setTabIndex(val);
@@ -56,17 +57,21 @@ export default function ListAllMovie() {
                     />
                 ))}
             {tabIndex === 1 &&
-                favoriteMovies.map((e) => (
-                    <MovieItem
-                        key={e.id + 'fav'}
-                        id={e.id}
-                        popularity={e.popularity}
-                        title={e.title}
-                        isFavorite={e.isFavorite}
-                        setInitEditCard={setInitEditCard}
-                        setDisplayEditCard={setDisplayEditCard}
-                    />
+                (favoriteMovies.length === 0 ? (
+                    <div>no favorite</div>
+                ) : (
+                    favoriteMovies.map((e) => (
+                        <MovieItem
+                            key={e.id + 'fav'}
+                            id={e.id}
+                            popularity={e.popularity}
+                            title={e.title}
+                            isFavorite={e.isFavorite}
+                            setInitEditCard={setInitEditCard}
+                            setDisplayEditCard={setDisplayEditCard}
+                        />
+                    ))
                 ))}
-        </div>
+        </Container>
     );
 }

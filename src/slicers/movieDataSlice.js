@@ -72,7 +72,6 @@ const movieDataSlice = createSlice({
                 ),
             };
         },
-
         editMovie: (state, action) => {
             return {
                 ...state,

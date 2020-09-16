@@ -1,0 +1,12 @@
+.itemContainer {
+    margin-bottom: 5px;
+    border: 1px #f00 solid;
+}
+
+.svgBtn {
+    font-size: 30px;
+}
+
+.svgBtn:hover {
+    cursor: pointer;
+}

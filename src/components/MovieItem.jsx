@@ -6,6 +6,7 @@ import {
 } from '../slicers/movieDataSlice';
 import { useDispatch } from 'react-redux';
 
+// import styling
 import { Paper } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,34 +16,38 @@ import {
     faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import styleGroup from '../css/MovieItem.module.css';
 
 export default function MovieItem({
     id,
     popularity,
     title,
     isFavorite,
-    setInitEditCard,
-    setDisplayEditCard,
+    setInitEditCard, // passing initial value for edit card component
+    setDisplayEditCard, // trigger a signal to show edit card component
 }) {
     const dispatch = useDispatch();
 
     return (
-        <div>
+        <div className={styleGroup.itemContainer}>
             <Paper elevation={3}>
                 {isFavorite ? (
                     <FontAwesomeIcon
+                        className={`${styleGroup.svgBtn}`}
                         icon={faStar}
                         onClick={() => dispatch(removeFavoriteMovie({ id }))}
                     />
                 ) : (
                     <FontAwesomeIcon
+                        className={`${styleGroup.svgBtn}`}
                         icon={farStar}
                         onClick={() => dispatch(addFavoriteMovie({ id }))}
                     />
                 )}
-                <p> {popularity} </p>
                 <p> {title} </p>
+                <p> {popularity} </p>
                 <FontAwesomeIcon
+                    className={`${styleGroup.svgBtn}`}
                     icon={faTrashAlt}
                     onClick={() => {
                         if (window.confirm('Want deleted?'))
@@ -50,13 +55,17 @@ export default function MovieItem({
                     }}
                 />
                 <FontAwesomeIcon
+                    className={`${styleGroup.svgBtn}`}
                     icon={faEdit}
                     onClick={() => {
                         setDisplayEditCard(true);
                         setInitEditCard({ id, title, popularity });
                     }}
                 />
-                <FontAwesomeIcon icon={faBars} />
+                <FontAwesomeIcon
+                    className={`${styleGroup.svgBtn}`}
+                    icon={faBars}
+                />
             </Paper>
         </div>
     );

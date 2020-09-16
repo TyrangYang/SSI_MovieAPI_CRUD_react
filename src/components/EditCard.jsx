@@ -3,6 +3,7 @@ import { Container, Paper, TextField, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { editMovie } from '../slicers/movieDataSlice';
 import { useDispatch } from 'react-redux';
+import styleGroup from '../css/EditCard.module.css';
 
 export default function EditCard({
     initState: { id, title, popularity },
@@ -10,11 +11,13 @@ export default function EditCard({
 }) {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
+
     return (
-        <div>
-            <Container>
-                <Paper elevation={3}>
+        <div className={styleGroup.editCardBackground}>
+            <Container maxWidth="xs" className={styleGroup.test}>
+                <Paper elevation={3} className={styleGroup.cardContainer}>
                     <span
+                        className={styleGroup.closeTag}
                         onClick={() => {
                             setDisplayEditCard(false);
                         }}
@@ -22,6 +25,7 @@ export default function EditCard({
                         &times;
                     </span>
                     <form
+                        className={styleGroup.formContainer}
                         onSubmit={handleSubmit((data) => {
                             dispatch(
                                 editMovie({
