@@ -1,12 +1,32 @@
 .itemContainer {
     margin-bottom: 5px;
-    border: 1px #f00 solid;
+}
+
+.contentContainer {
+    display: flex;
+    align-items: center;
 }
 
 .svgBtn {
+    /* border: 1px #f00 solid; */
     font-size: 30px;
+    padding: 5px;
+    border-radius: 15%;
 }
 
 .svgBtn:hover {
     cursor: pointer;
+    background: #eee;
+}
+
+.svgBtnStar {
+    color: orange;
+}
+
+.svgBtnDel {
+    color: #e00;
+}
+.svgBtnDel:hover {
+    color: red;
+    transform: scale(0.9);
 }

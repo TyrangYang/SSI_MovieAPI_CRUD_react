@@ -24,8 +24,8 @@ Rebuild CRUD in react
 -   [x] Data Input section
 -   [x] Edition section
 -   [x] Delete button
--   [ ] List of items in ordered list
--   [ ] Re-order main list according to initial letter
--   [ ] Add favorite items
--   [ ] Check favorite items (Modal layer)
+-   [x] List of items in ordered list
+-   [x] Re-order main list according to initial letter
+-   [x] Add favorite items
+-   [x] Check favorite items (Modal layer)
 -   [ ] Pagination section
