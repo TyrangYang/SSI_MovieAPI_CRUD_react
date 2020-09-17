@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import MovieItem from './MovieItem';
 import EditCard from './EditCard';
+import ListMovie from './ListMovie';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies } from '../slicers/movieDataSlice';
@@ -13,16 +14,18 @@ import {
     Checkbox,
     FormControlLabel,
 } from '@material-ui/core';
-import styleGroup from '../css/ListAllMovie.module.css';
+import styleGroup from '../css/MovieDisplayPanel.module.css';
 
-export default function ListAllMovie() {
+export default function MovieDisplayPanel() {
     const dispatch = useDispatch();
 
     // get state from redux
-    const { movies, favoriteMovies, initialized } = useSelector(
+    const { movies, favoriteMovies, initialized, totalPages } = useSelector(
         (state) => state.allMovies
     );
 
+    // set current page number
+    const [curPageNum, setCurPageNum] = useState(1);
     // set edit card state
     const [initEditCard, setInitEditCard] = useState({
         id: null,
@@ -37,8 +40,8 @@ export default function ListAllMovie() {
 
     // fetch data
     useEffect(() => {
-        dispatch(fetchMovies(1));
-    }, [dispatch]);
+        dispatch(fetchMovies(curPageNum));
+    }, [dispatch, curPageNum]);
 
     // preprocess display data
     const moviesToDisplay = useMemo(() => {
@@ -97,20 +100,16 @@ export default function ListAllMovie() {
             </div>
 
             {/* display movies */}
-            {initialized &&
-                tabIndex === 0 &&
-                moviesToDisplay.map((e) => (
-                    <MovieItem
-                        key={e.id}
-                        id={e.id}
-                        popularity={e.popularity}
-                        title={e.title}
-                        isFavorite={e.isFavorite}
-                        setInitEditCard={setInitEditCard}
-                        setDisplayEditCard={setDisplayEditCard}
-                    />
-                ))}
-
+            {initialized && tabIndex === 0 && (
+                <ListMovie
+                    moviesToDisplay={moviesToDisplay}
+                    curPageNum={curPageNum} // for pagination
+                    setCurPageNum={setCurPageNum} // for pagination
+                    totalPages={totalPages} // for pagination
+                    setInitEditCard={setInitEditCard} // for control edit card
+                    setDisplayEditCard={setDisplayEditCard} // for control edit card
+                />
+            )}
             {/* display favorite movies */}
             {tabIndex === 1 &&
                 (favoriteMoviesToDisplay.length === 0 ? (
@@ -120,7 +119,7 @@ export default function ListAllMovie() {
                 ) : (
                     favoriteMoviesToDisplay.map((e) => (
                         <MovieItem
-                            key={e.id + 'fav'}
+                            key={e.id + '_fav'}
                             id={e.id}
                             popularity={e.popularity}
                             title={e.title}

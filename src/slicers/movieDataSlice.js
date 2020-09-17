@@ -7,14 +7,16 @@ const movieDataSlice = createSlice({
         movies: [],
         initialized: false,
         favoriteMovies: [],
+        totalPages: 0,
     },
 
     reducers: {
         setMovies: (state, action) => {
             return {
-                movies: action.payload,
+                ...state,
+                movies: action.payload.movies,
                 initialized: true,
-                favoriteMovies: [],
+                totalPages: action.payload.totalPages,
             };
         },
         addMovies: (state, action) => {
@@ -44,7 +46,7 @@ const movieDataSlice = createSlice({
                     return newItem;
                 }),
                 favoriteMovies: [
-                    ...(state.favoriteMovies || []),
+                    ...state.favoriteMovies,
                     {
                         ...state.movies
                             .filter((e) => e.id === action.payload.id)
@@ -111,7 +113,7 @@ export const fetchMovies = (page) => (dispatch) => {
     axios
         .get(`${apiURL}/popular?api_key=${apiKey}&language=en-US&page=${page}`)
         .then(({ data }) => {
-            const res = data.results.map((element) => {
+            const movies = data.results.map((element) => {
                 return {
                     id: element.id,
                     popularity: element.popularity,
@@ -119,7 +121,8 @@ export const fetchMovies = (page) => (dispatch) => {
                     isFavorite: false,
                 };
             });
-            dispatch(setMovies(res));
+            const totalPages = data.total_pages;
+            dispatch(setMovies({ movies, totalPages }));
         });
 };
 
