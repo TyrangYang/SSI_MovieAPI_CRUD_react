@@ -8,14 +8,13 @@ import { useDispatch } from 'react-redux';
 
 // import styling
 import { Paper, Grid } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faStar,
-    faTrashAlt,
-    faEdit,
-    faBars,
-} from '@fortawesome/free-solid-svg-icons';
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+    AiFillDelete,
+    AiFillStar,
+    AiOutlineStar,
+    AiFillEdit,
+} from 'react-icons/ai';
+import { MdDragHandle } from 'react-icons/md';
 import styleGroup from '../css/MovieItem.module.css';
 
 export default function MovieItem({
@@ -34,17 +33,15 @@ export default function MovieItem({
                 <Grid container className={styleGroup.contentContainer}>
                     <Grid item xs={1}>
                         {isFavorite ? (
-                            <FontAwesomeIcon
+                            <AiFillStar
                                 className={`${styleGroup.svgBtn} ${styleGroup.svgBtnStar}`}
-                                icon={faStar}
                                 onClick={() =>
                                     dispatch(removeFavoriteMovie({ id }))
                                 }
                             />
                         ) : (
-                            <FontAwesomeIcon
+                            <AiOutlineStar
                                 className={`${styleGroup.svgBtn} ${styleGroup.svgBtnStar}`}
-                                icon={farStar}
                                 onClick={() =>
                                     dispatch(addFavoriteMovie({ id }))
                                 }
@@ -58,9 +55,8 @@ export default function MovieItem({
                         <p> {popularity} </p>
                     </Grid>
                     <Grid item xs={1}>
-                        <FontAwesomeIcon
+                        <AiFillDelete
                             className={`${styleGroup.svgBtn} ${styleGroup.svgBtnDel}`}
-                            icon={faTrashAlt}
                             onClick={() => {
                                 if (window.confirm('Want deleted?'))
                                     dispatch(deleteMovies({ id }));
@@ -68,9 +64,8 @@ export default function MovieItem({
                         />
                     </Grid>
                     <Grid item xs={1}>
-                        <FontAwesomeIcon
+                        <AiFillEdit
                             className={`${styleGroup.svgBtn}`}
-                            icon={faEdit}
                             onClick={() => {
                                 setDisplayEditCard(true);
                                 setInitEditCard({ id, title, popularity });
@@ -78,10 +73,7 @@ export default function MovieItem({
                         />
                     </Grid>
                     <Grid item xs={1}>
-                        <FontAwesomeIcon
-                            className={`${styleGroup.svgBtn}`}
-                            icon={faBars}
-                        />
+                        <MdDragHandle className={`${styleGroup.svgBtn}`} />
                     </Grid>
                 </Grid>
             </Paper>
