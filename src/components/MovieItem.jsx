@@ -17,7 +17,7 @@ import {
 import { MdDragHandle } from 'react-icons/md';
 import styleGroup from '../css/MovieItem.module.css';
 
-export default function MovieItem({
+function MovieItem({
     id,
     popularity,
     title,
@@ -26,7 +26,7 @@ export default function MovieItem({
     setDisplayEditCard, // trigger a signal to show edit card component
 }) {
     const dispatch = useDispatch();
-
+    // console.log('render items');
     return (
         <div className={styleGroup.itemContainer}>
             <Paper elevation={3}>
@@ -80,3 +80,5 @@ export default function MovieItem({
         </div>
     );
 }
+
+export default React.memo(MovieItem);

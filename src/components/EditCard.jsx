@@ -11,7 +11,7 @@ export default function EditCard({
 }) {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
-
+    // console.log('render edit card');
     return (
         <div className={styleGroup.editCardBackground}>
             <Container maxWidth="xs" className={styleGroup.test}>

@@ -66,6 +66,7 @@ export default function MovieDisplayPanel() {
         return favoriteMovies;
     }, [favoriteMovies, isSortByName]);
 
+    // console.log('render panel');
     return (
         <Container maxWidth="md">
             {/* edit card */}

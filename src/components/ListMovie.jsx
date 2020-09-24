@@ -2,7 +2,7 @@ import React from 'react';
 import MovieItem from './MovieItem';
 import { Pagination } from '@material-ui/lab';
 
-export default function ListMovie({
+function ListMovie({
     moviesToDisplay,
     curPageNum,
     setCurPageNum,
@@ -10,6 +10,7 @@ export default function ListMovie({
     setInitEditCard,
     setDisplayEditCard,
 }) {
+    // console.log('render list');
     return (
         <div>
             {moviesToDisplay.map((e) => (
@@ -32,3 +33,5 @@ export default function ListMovie({
         </div>
     );
 }
+
+export default React.memo(ListMovie);
